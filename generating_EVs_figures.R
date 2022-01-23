@@ -1,4 +1,3 @@
-setwd("~/Desktop/Oxford/LFT_drug_analysis/cluster_output")
 library(tidyverse)
 library(ggpubr)
 # main scenario
