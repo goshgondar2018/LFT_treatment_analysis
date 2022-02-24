@@ -83,11 +83,7 @@ generate_EVs<-function(j_max,data,index,incubation_period,drug_coverage_prop,del
     
   }
   prop_given_drug_final_value=1-mean(prod_probs_all_negative_list)
-  #prop_benefited_value=mean(list_benefited_means)
-  #prop_benefited_value2=mean(list_benefited2_means)
-  #prop_given_drug_and_benefited_value=prop_given_drug_final_value*prop_benefited_value2
-  
-
+ 
   return(list(list1=list_product_all_probs,list2=list_product_all_probs2,
               prop=prop_given_drug_final_value,prop2=list_product_benefited,prop3=list_product_benefited2))
 }
@@ -124,9 +120,6 @@ produce_results_main<-function(index,j_max){
     prop_benefited=(1/index)*sum(EV_iteration$prop2,EV_iteration$prop3)
     list_prop_benefited=c(list_prop_benefited,prop_benefited)
     
-    #prop_given_drug_and_benefited=EV_iteration$prop*mean(EV_iteration$prop2)
-    #list_prop_given_drug_and_benefited=c(list_prop_given_drug_and_benefited,prop_given_drug_and_benefited)
-    
   }
   median = quantile(list_sums_EV, probs = 0.5)
   LQ = quantile(list_sums_EV, probs = 0.025)
@@ -140,29 +133,17 @@ produce_results_main<-function(index,j_max){
   LQ_prop_benefited=quantile(list_prop_benefited,probs=0.025)
   UQ_prop_benefited=quantile(list_prop_benefited,probs=0.975)
   
-  #median_given_drug_and_benefited=quantile(list_prop_given_drug_and_benefited,probs=0.5)
-  #LQ_given_drug_and_benefited=quantile(list_prop_given_drug_and_benefited,probs=0.025)
-  #UQ_given_drug_and_benefited=quantile(list_prop_given_drug_and_benefited,probs=0.975)
-  
   return(list(df=list_sums_EV,median=median,LQ=LQ,UQ=UQ,
               median_given_drug_probs=median_given_drug_probs,LQ_given_drug_probs=LQ_given_drug_probs,
               UQ_given_drug_probs=UQ_given_drug_probs,
               median_prop_benefited=median_prop_benefited,
-              LQ_prop_benefited=LQ_prop_benefited,UQ_prop_benefited=UQ_prop_benefited)) # median_given_drug_and_benefited=median_given_drug_and_benefited,
-  #LQ_given_drug_and_benefited=LQ_given_drug_and_benefited,UQ_given_drug_and_benefited=UQ_given_drug_and_benefited
+              LQ_prop_benefited=LQ_prop_benefited,UQ_prop_benefited=UQ_prop_benefited)) 
 }
 
 EVs_every_other_day=produce_results_main(2,15)
-#write.csv(EVs_every_other_day$df,"EVs_every_other_day_df.csv")
-
 EVs_every_three_days=produce_results_main(3,10)
-#write.csv(EVs_every_three_days$df,"EVs_every_three_days_df.csv")
-
 EVs_every_week=produce_results_main(7,4)
-#write.csv(EVs_every_week$df,"EVs_every_week_df.csv")
-
 EVs_every_two_weeks=produce_results_main(14,2)
-#write.csv(EVs_every_two_weeks$df,"EVs_every_two_weeks_df.csv")
 
 all_EVs=cbind.data.frame(every_other_day=EVs_every_other_day$df,
                          every_three_days=EVs_every_three_days$df,
