@@ -59,10 +59,7 @@ generate_EVs_sensitivity<-function(j_max,data,index,incubation_period,drug_cover
 
 produce_results_efficacy_preserved<-function(index,j_max){
   list_sums_EV<-c()
-  list_prop_given_drug<-c()
-  list_prop_benefited<-c()
-  list_prop_given_drug_and_benefited<-c()
-
+  
   for (iter in 1:max(LFT_curve$iteration)){
     incubation_period=rlnorm(1,meanlog=1.63,sdlog=0.5)
     LFT_curve_iteration=LFT_curve%>%
@@ -86,23 +83,14 @@ produce_results_efficacy_preserved<-function(index,j_max){
   median = quantile(list_sums_EV, probs = 0.5)
   LQ = quantile(list_sums_EV, probs = 0.025)
   UQ = quantile(list_sums_EV, probs = 0.975)
-
-
-
+  
   return(list(df=list_sums_EV,median=median,LQ=LQ,UQ=UQ))
 }
 
 EVs_every_other_day_efficacy_preserved=produce_results_efficacy_preserved(2,15)
-#write.csv(EVs_every_other_day_efficacy_preserved$df,"EVs_every_other_day_df_efficacy_preserved.csv")
-
 EVs_every_three_days_efficacy_preserved=produce_results_efficacy_preserved(3,10)
-#write.csv(EVs_every_three_days_efficacy_preserved$df,"EVs_every_three_days_df_efficacy_preserved.csv")
-
 EVs_every_week_efficacy_preserved=produce_results_efficacy_preserved(7,4)
-#write.csv(EVs_every_week_efficacy_preserved$df,"EVs_every_week_df_efficacy_preserved.csv")
-
 EVs_every_two_weeks_efficacy_preserved=produce_results_efficacy_preserved(14,2)
-#write.csv(EVs_every_two_weeks_efficacy_preserved$df,"EVs_every_two_weeks_df_efficacy_preserved.csv")
 
 all_EVs_efficacy_preserved=cbind.data.frame(every_other_day=EVs_every_other_day_efficacy_preserved$df,
                                             every_three_days=EVs_every_three_days_efficacy_preserved$df,
@@ -112,14 +100,10 @@ melted_all_EVs_efficacy_preserved=melt(all_EVs_efficacy_preserved,variable.name=
 write.csv(melted_all_EVs_efficacy_preserved,"melted_all_EVs_efficacy_preserved.csv",row.names=F)
 
 
-
 #####
 
 produce_results_drop_zero<-function(index,j_max){
   list_sums_EV<-c()
-  list_prop_given_drug<-c()
-  list_prop_benefited<-c()
-  list_prop_given_drug_and_benefited<-c()
 
   for (iter in 1:max(LFT_curve$iteration)){
     incubation_period=rlnorm(1,meanlog=1.63,sdlog=0.5)
@@ -148,16 +132,9 @@ produce_results_drop_zero<-function(index,j_max){
 }
 
 EVs_every_other_day_drop_zero=produce_results_drop_zero(2,15)
-#write.csv(EVs_every_other_day_drop_zero$df,"EVs_every_other_day_df_drop_zero.csv")
-
 EVs_every_three_days_drop_zero=produce_results_drop_zero(3,10)
-#write.csv(EVs_every_three_days_drop_zero$df,"EVs_every_three_days_df_drop_zero.csv")
-
 EVs_every_week_drop_zero=produce_results_drop_zero(7,4)
-#write.csv(EVs_every_week_drop_zero$df,"EVs_every_week_df_drop_zero.csv")
-
 EVs_every_two_weeks_drop_zero=produce_results_drop_zero(14,2)
-#write.csv(EVs_every_two_weeks_drop_zero$df,"EVs_every_two_weeks_df_drop_zero.csv")
 
 all_EVs_drop_zero=cbind.data.frame(every_other_day=EVs_every_other_day_drop_zero$df,
                                             every_three_days=EVs_every_three_days_drop_zero$df,
