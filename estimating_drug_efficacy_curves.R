@@ -1,5 +1,3 @@
-library(ggpubr)
-
 pfizer_data=cbind.data.frame(days=c(rep(3,697),rep(3,682),rep(5,1039),rep(5,1046)),
                              hosp=c(rep(1,5),rep(0,697-5),c(rep(1,44),rep(0,682-44),
                                                             c(rep(1,8), rep(0,1039-8),c(rep(1,66), rep(0,1046-66))))),
@@ -42,7 +40,6 @@ fig1=ggplot(observed_predicted_RRs,aes(x=time))+geom_line(aes(y=RR.x))+geom_poin
   scale_x_continuous(breaks=seq(0,10,2))+
   theme_classic()+ylab("RR")
 
-#fig1=ggplot(all_RRs,aes(x=time,y=RR))+geom_line()+scale_x_continuous(breaks=seq(0,10,2))+theme_classic()
 observed_risks_treated=cbind.data.frame(time=c(3,5),risk_treated=c((5/697),(8/1039)))
 observed_predicted_risks_treated=merge(all_risks,observed_risks_treated,by='time',all.x=TRUE)
 
@@ -91,8 +88,6 @@ fig3=ggplot(observed_predicted_ORs,aes(x=time))+geom_line(aes(y=OR.x))+geom_poin
   scale_x_continuous(breaks=seq(0,10,2))+
   theme_classic()+ylab("OR")
 
-#fig3=ggplot(all_ORs,aes(x=time,y=OR))+geom_line()+scale_x_continuous(breaks=seq(0,10,2))+theme_classic()
-
 observed_odds_treated=cbind.data.frame(time=c(3,5),odds_treated=c((5/697)/(1-(5/697)),(8/1039)/(1-(8/1039))))
 observed_predicted_odds_treated=merge(all_odds,observed_odds_treated,by='time',all.x=TRUE)
 fig4=ggplot(observed_predicted_odds_treated,aes(x=time))+geom_line(aes(y=odds_treated.x))+
@@ -100,10 +95,6 @@ fig4=ggplot(observed_predicted_odds_treated,aes(x=time))+geom_line(aes(y=odds_tr
   scale_x_continuous(breaks=seq(0,10,2))+
   theme_classic()+
   ylab("odds among the treated")
-
-ggarrange(fig1,fig2,fig3,fig4)
-
-ggsave("drug_efficacy_curves.pdf")
 
 
 
