@@ -21,13 +21,6 @@ prop_given_drug=prop_given_drug%>%
   mutate(testing_strategy=factor(testing_strategy,
                                  levels=c("every_other_day","every_three_days", "every_week","every_two_weeks")))
 
-prop_given_drug_and_benefited=read.csv("prop_given_drug_and_benefited_all.csv")
-colnames(prop_given_drug_and_benefited)<-c("median","LQ","UQ")
-prop_given_drug_and_benefited$testing_strategy=c("every_other_day","every_three_days", "every_week","every_two_weeks")
-prop_given_drug_and_benefited=prop_given_drug_and_benefited%>%
-  mutate(testing_strategy=factor(testing_strategy,
-                                 levels=c("every_other_day","every_three_days", "every_week","every_two_weeks")))
-
 # palette from http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
 cbPalette <- c("#CC79A7", "#E69F00",  "#009E73","#56B4E9")#, "#F0E442", "#0072B2", "#D55E00")
 
