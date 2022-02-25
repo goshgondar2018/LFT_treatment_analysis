@@ -97,4 +97,5 @@ fig4=ggplot(observed_predicted_odds_treated,aes(x=time))+geom_line(aes(y=odds_tr
   ylab("odds among the treated")
 
 
-
+ggarrange(fig1,fig2,fig3,fig4)
+ggsave("drug_efficacy_curves.pdf")
