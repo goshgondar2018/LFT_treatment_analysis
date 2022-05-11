@@ -38,7 +38,7 @@ observed_RRs=cbind.data.frame(time=c(3,5),RR=c((5/697)/(44/682),(8/1039)/(66/104
 observed_predicted_RRs=merge(all_RRs,observed_RRs,by='time',all.x=TRUE)
 fig1=ggplot(observed_predicted_RRs,aes(x=time))+geom_line(aes(y=RR.x))+geom_point(aes(y=RR.y),col='blue',size=3)+
   scale_x_continuous(breaks=seq(0,10,2))+
-  theme_classic()+ylab("RR")
+  theme_classic()+ylab("RR")+xlab("time (days)")
 
 observed_risks_treated=cbind.data.frame(time=c(3,5),risk_treated=c((5/697),(8/1039)))
 observed_predicted_risks_treated=merge(all_risks,observed_risks_treated,by='time',all.x=TRUE)
@@ -47,7 +47,7 @@ fig2=ggplot(observed_predicted_risks_treated,aes(x=time))+geom_line(aes(y=risk_t
   geom_point(aes(y=risk_treated.y),col='blue',size=3)+
   scale_x_continuous(breaks=seq(0,10,2))+
   theme_classic()+
-  ylab("risk among the treated")
+  ylab("risk among the treated")+xlab("time (days)")
 
 logistic=glm(hosp~days+treated+days*treated,data=pfizer_data,family=binomial(link='logit'))
 
@@ -85,8 +85,8 @@ observed_ORs=cbind.data.frame(time=c(3,5),OR=c(((5/697)*(1-(44/682)))/((1-(5/697
                                                ((8/1039)*(1-(66/1046)))/((1-(8/1039))*(66/1046))))
 observed_predicted_ORs=merge(all_ORs,observed_ORs,by='time',all.x=TRUE)
 fig3=ggplot(observed_predicted_ORs,aes(x=time))+geom_line(aes(y=OR.x))+geom_point(aes(y=OR.y),col='blue',size=3)+
-  scale_x_continuous(breaks=seq(0,10,2))+
-  theme_classic()+ylab("OR")
+  scale_x_continuous(breaks=seq(0,10,2))
+  theme_classic()+ylab("OR")+xlab("time (days)")
 
 observed_odds_treated=cbind.data.frame(time=c(3,5),odds_treated=c((5/697)/(1-(5/697)),(8/1039)/(1-(8/1039))))
 observed_predicted_odds_treated=merge(all_odds,observed_odds_treated,by='time',all.x=TRUE)
@@ -94,7 +94,7 @@ fig4=ggplot(observed_predicted_odds_treated,aes(x=time))+geom_line(aes(y=odds_tr
   geom_point(aes(y=odds_treated.y),col='blue',size=3)+
   scale_x_continuous(breaks=seq(0,10,2))+
   theme_classic()+
-  ylab("odds among the treated")
+  ylab("odds among the treated")+xlab("time (days)")
 
 
 ggarrange(fig1,fig2,fig3,fig4)
