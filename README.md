@@ -14,7 +14,11 @@ Code for estimating weighted risk ratios (RRs) of hospitalization under two addi
 
 # generating_EVs_sensitivity_analyses_access_apr8.R #
 
-Code for estimating weighted risk ratios (RRs) of hospitalization under a range of test-to-treatment delays and treatment coverage proportions. Output includes weighted RRs for every combination of assumed treatment coverage and test-to-treatment delays, a contour plot of weighted RRs, treatment coverage, and test-to-treatment delays, and a 3-d point plot of weighted RRs, treatment coverage, and test-to-treatment delays. 
+Code for estimating weighted risk ratios (RRs) of hospitalization under a range of test-to-treatment delays and treatment coverage proportions. Output includes weighted RRs for every combination of assumed treatment coverage and test-to-treatment delays, a contour plot of weighted RRs, treatment coverage, and test-to-treatment delays, and a 3-d point plot of weighted RRs, treatment coverage, and test-to-treatment delays.
+
+# test_coverage_scenarios_may2.R #
+
+Code for estimating proportion given treatment and benefit as a function of proportion tested, across strategies.
 
 # generating_EVs_figures_may10.R #
 
