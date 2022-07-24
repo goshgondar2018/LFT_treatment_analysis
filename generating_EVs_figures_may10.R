@@ -61,7 +61,7 @@ plot2=ggplot(prop_given_drug_2,aes(x=fct_reorder(testing_strategy,median,.desc=T
 
 ggarrange(plot1,plot2,nrow=2,legend='right',labels=c('A','B'))
 
-ggsave("~/Desktop/Oxford/LFT_drug_analysis/all_figures_may2/main_EVs_zero_delays.pdf")
+ggsave("./main_EVs_zero_delays.pdf")
 
 ## extract medians, LQs, and UQs for each strategy
 melted_all_EVs_summarized<-melted_all_EVs_2%>%
@@ -135,14 +135,14 @@ plot2_incubation_sensitivity=ggplot(prop_given_drug_2_incubation_sensitivity,
   ylim(c(0.0,1.0))+xlab("testing strategy")+ylab("proportion given treatment")
 
 ggarrange(plot1_incubation_sensitivity,plot2_incubation_sensitivity,nrow=2,legend='right',labels=c('A','B'))
-ggsave("~/Desktop/Oxford/LFT_drug_analysis/all_figures_may2/main_EVs_zero_delays_incubation_sensitivity.pdf")
+ggsave("./main_EVs_zero_delays_incubation_sensitivity.pdf## extract medians, LQs, and UQs for each strategy")
 
-## extract medians, LQs, and UQs for each strategy
 melted_all_EVs_summarized_incubation_sensitivity<-melted_all_EVs_2_incubation_sensitivity%>%
   group_by(testing_strategy)%>%
   summarise(median=quantile(weighted_risk_reduction,probs=0.5),
             LQ=quantile(weighted_risk_reduction,probs=0.02),
             UQ=quantile(weighted_risk_reduction,probs=0.975))%>%
+  filter(testing_strategy%in%c("every_other_day","every_three_days","every_week","every_two_weeks"))%>%
   mutate(scenario='base case')
 
 ## additional drug efficacy scenarios
@@ -152,6 +152,7 @@ melted_all_EVs_drop_zero=read.csv("melted_all_EVs_drop_zero.csv")%>%
 
 melted_all_EVs_drop_zero_summarized<-melted_all_EVs_drop_zero%>%
   group_by(testing_strategy)%>%
+  filter(testing_strategy%in%c("every_other_day","every_three_days","every_week","every_two_weeks"))%>%
   summarise(median=quantile(weighted_risk_reduction,probs=0.5),
             LQ=quantile(weighted_risk_reduction,probs=0.02),
             UQ=quantile(weighted_risk_reduction,probs=0.975))%>%
@@ -163,6 +164,7 @@ melted_all_EVs_efficacy_preserved=read.csv("melted_all_EVs_efficacy_preserved.cs
 
 melted_all_EVs_efficacy_preserved_summarized<-melted_all_EVs_efficacy_preserved%>%
   group_by(testing_strategy)%>%
+  filter(testing_strategy%in%c("every_other_day","every_three_days","every_week","every_two_weeks"))%>%
   summarise(median=quantile(weighted_risk_reduction,probs=0.5),
             LQ=quantile(weighted_risk_reduction,probs=0.02),
             UQ=quantile(weighted_risk_reduction,probs=0.975))%>%
@@ -194,7 +196,7 @@ efficacy_scenarios_facet_plot=ggplot(melted_all_EVs_summarized_combined,
 efficacy_scenarios_facet_plot+
   facet_wrap(~testing_strategy,labeller=as_labeller(facet_labels),ncol=5,nrow=1)
 
-ggsave("~/Desktop/Oxford/LFT_drug_analysis/all_figures_may2/comparing_efficacy_scenarios.pdf")
+ggsave("./comparing_efficacy_scenarios.pdf")
 
 # test coverage sensitivity analysis
 test_covg_sensitivity=read_csv("all_props_every_strategy.csv")
@@ -229,7 +231,7 @@ test_covg_sensitivity_given_drug_facet_plot=ggplot(test_covg_sensitivity_summari
 
 test_covg_sensitivity_given_drug_facet_plot+
   facet_wrap(~testing_strategy,labeller=as_labeller(facet_labels),ncol=5,nrow=1)
-ggsave("~/Desktop/Oxford/LFT_drug_analysis/all_figures_may2/test_covg_sensitivity_given_drug_plot.pdf")
+ggsave("./test_covg_sensitivity_given_drug_plot.pdf")
 
 ## prop benefited
 test_covg_sensitivity_prop_benefited_facet_plot=ggplot(test_covg_sensitivity_summarized,
@@ -245,7 +247,7 @@ test_covg_sensitivity_prop_benefited_facet_plot=ggplot(test_covg_sensitivity_sum
 
 test_covg_sensitivity_prop_benefited_facet_plot+facet_wrap(~testing_strategy,labeller=as_labeller(facet_labels),
                                                            ncol=5,nrow=1)
-ggsave("~/Desktop/Oxford/LFT_drug_analysis/all_figures_may2/test_covg_sensitivity_benefited_plot.pdf")
+ggsave("./test_covg_sensitivity_benefited_plot.pdf")
 
 
 ##
