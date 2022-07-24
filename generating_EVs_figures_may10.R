@@ -1,4 +1,4 @@
-setwd("~/Desktop/Oxford/LFT_drug_analysis/all_output_may2")
+setwd("~/output/all_output_may2")
 library(tidyverse)
 library(ggpubr)
 # main scenario
